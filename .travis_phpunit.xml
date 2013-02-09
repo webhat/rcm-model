@@ -8,8 +8,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="HelloWorldTest">
-            <directory suffix="Test.php">./php/test/</directory>
+        <testsuite name="RCMModelTest">
+            <directory suffix="Test.class.php">./php/test/</directory>
         </testsuite>
     </testsuites>
 
@@ -19,6 +19,7 @@
             <exclude>
                 <directory>./php/test/</directory>
                 <directory>./smarty/</directory>
+								<file>./php/RCMConfig.example.class.php</file>
             </exclude>
         </whitelist>
     </filter>
