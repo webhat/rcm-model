@@ -49,6 +49,66 @@ class RCMModelTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( $expected, $actual);
 	}
 
+	/**
+	 * @dataProvider nodeProvider
+	 */
+	public function testServerRemoveNodeByName( $nodeName, $properties, $expected) {
+		try {
+			$this->rcmm->setClient($this->realClient);
+			$this->rcmm->getClient()->getServerInfo(true);
+		} catch( Exception $e ) {
+			$this->markTestSkipped('neo4j Server down');
+		}
+
+		$actual = $this->rcmm->addNode( $nodeName);
+		$this->assertTrue( $actual);
+		$actual = $this->rcmm->removeNodeByName( $nodeName);
+
+		$this->assertEquals( $expected, $actual);
+	}
+
+	/**
+	 * @dataProvider nodeProvider
+	 */
+	public function testServerRemoveNodeByProperty( $nodeName, $properties, $expected) {
+		try {
+			$this->rcmm->setClient($this->realClient);
+			$this->rcmm->getClient()->getServerInfo(true);
+		} catch( Exception $e ) {
+			$this->markTestSkipped('neo4j Server down');
+		}
+
+		if( empty( $properties))
+			$this->markTestSkipped('Test skipped, no properties in fixture');
+
+		$actual = $this->rcmm->addNode( $nodeName, $properties);
+		$this->assertTrue( $actual);
+
+		foreach( $properties as $key => $value)
+			$actual = $this->rcmm->removeNodeByProperty( $key, $value);
+
+		$this->assertEquals( $expected, $actual);
+	}
+
+	/**
+	 * @expectedException RCMModelException
+	 * @dataProvider nodeProvider
+	 */
+	public function testServerRemoveNodeByNameException( $nodeName, $properties, $expected) {
+		try {
+			$this->rcmm->setClient($this->realClient);
+			$this->rcmm->getClient()->getServerInfo(true);
+		} catch( Exception $e ) {
+			$this->markTestSkipped('neo4j Server down');
+		}
+
+		$actual = $this->rcmm->addNode( $nodeName, $properties);
+		$this->assertTrue( $actual);
+		$actual = $this->rcmm->addNode( $nodeName, $properties);
+		$this->assertTrue( $actual);
+
+		$actual = $this->rcmm->removeNodeByName( $nodeName);
+	}
 
 	/**
 	 * @dataProvider nodeProvider
@@ -89,7 +149,6 @@ class RCMModelTest extends PHPUnit_Framework_TestCase {
 		foreach($result as $row) {
 			$this->rcmm->getClient()->deleteNode($row['root']);
 		}
-
 	}
 
 

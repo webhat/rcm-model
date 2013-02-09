@@ -30,6 +30,29 @@ class RCMModel {
 		return ($ret->getProperty('name') == $name);
 	}
 
+	public function removeNodeByName( $nodeName) {
+		return $this->removeNodeByProperty( 'name', $nodeName);
+	}
+
+	public function removeNodeByProperty( $key, $value) {
+		$queryTemplate = "START root=node:NI('$key:$value') ".
+			"RETURN root";
+		$query = new Cypher\Query( $this->getClient(), $queryTemplate, array($key => $value));
+		$result = $query->getResultSet();
+
+		if(($cnt = count($result)) > 1) {
+			throw new RCMModelException( "Too many nodes match the query. $cnt nodes found");
+		}
+
+		foreach($result as $row) {
+			if(!$this->getClient()->deleteNode($row['root'])) {
+				throw new RCMModelException( "Unabse to delete node, reason unknown.");
+			}
+		}
+
+		return true;
+	}
+
 	public function setNodeIndex($nodeIndex) {
 		return $this->nodeIndex = $nodeIndex;
 	}
