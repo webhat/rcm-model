@@ -8,8 +8,8 @@
     </php>
 
     <testsuites>
-        <testsuite name="HelloWorldTest">
-            <directory suffix="Test.php">./php/test/</directory>
+        <testsuite name="RCMModelTest">
+            <directory suffix="Test.class.php">./php/test/</directory>
         </testsuite>
     </testsuites>
 
@@ -19,18 +19,19 @@
             <exclude>
                 <directory>./php/test/</directory>
                 <directory>./smarty/</directory>
+								<file>./php/RCMConfig.example.class.php</file>
             </exclude>
         </whitelist>
     </filter>
 
 		<logging>
-				<log type="coverage-html" target="./ext/output/report" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/>
+				<!--log type="coverage-html" target="./ext/output/report" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70"/-->
 				<log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
 				<!-- log type="coverage-clover" target="./ext/output/coverage.xml"/-->
-				<log type="json" target="./ext/output/logfile.json"/>
+				<log type="json" target="./output/logfile.json"/>
 				<!--log type="tap" target="./ext/output/logfile.tap"/-->
-				<log type="junit" target="./ext/output/logfile.xml" logIncompleteSkipped="false"/>
-				<log type="testdox-html" target="./ext/output/testdox.html"/>
-				<log type="testdox-text" target="./ext/output/testdox.txt"/>
+				<log type="junit" target="./output/logfile.xml" logIncompleteSkipped="false"/>
+				<log type="testdox-html" target="./output/testdox.html"/>
+				<log type="testdox-text" target="./output/testdox.txt"/>
 		</logging>
 </phpunit>
