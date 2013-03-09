@@ -32,6 +32,12 @@ class RCMModelTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	public function testCreateRCMModel() {
+		$actual = new RCMModel();
+
+		$this->assertNotNull($actual);
+	}
+
 	/**
 	 * @dataProvider nodeProvider
 	 */
@@ -151,6 +157,25 @@ class RCMModelTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	public function testGetNodeIndex() {
+		$expected = $this->nodeIndex;
+		$this->rcmm->setNodeIndex($expected);
+
+		$actual = $this->rcmm->getNodeIndex();
+
+		$this->assertNotNull( $actual);
+		$this->assertEquals( $expected, $actual);
+	}
+
+	public function testGetConfig() {
+		$expected = new RCMConfig();
+		$this->rcmm->setConfig($expected);
+
+		$actual = $this->rcmm->getConfig();
+
+		$this->assertNotNull( $actual);
+		$this->assertEquals( $expected, $actual);
+	}
 
 	public function nodeProvider() {
 		return array( // elements

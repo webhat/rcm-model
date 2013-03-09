@@ -1,6 +1,6 @@
 <?php
 
-require("phar://libs/neo4jphp.phar");
+require_once("phar://libs/neo4jphp.phar");
 
 function loader($class) {
 	$file = "". $class . '.class.php';
