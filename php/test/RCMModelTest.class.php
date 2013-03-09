@@ -32,6 +32,12 @@ class RCMModelTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	public function testCreateRCMModel() {
+		$actual = new RCMModel();
+
+		$this->assertNotNull($actual);
+	}
+
 	/**
 	 * @dataProvider nodeProvider
 	 */
